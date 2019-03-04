@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"> -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script> -->
+</head>
+
+<body>
+    <div id="app-7"></div>
+
+    <script>
+        function Todo(name) {
+            this.name = name;
+        }
+
+        var todoComp = Vue.component('todo-item', {
+            props: {
+                todo: Object,
+                status: Boolean
+            },
+            methods: {
+                alper: function (param) {
+                    alert(param.target.value);
+                    this.$emit("mychange", {x:5});
+                }
+            },
+            template: '<input type="text" v-on:change="alper($event)" v-bind:value="todo.name"></input>'
+        });
+
+
+
+        var app = document.getElementById("app-7");
+        function createComponent(comp, props, events) {
+            var compInst = new comp({ propsData: props, _parentListeners: events});
+            var compContainer = document.createElement("div");
+            app.appendChild(compContainer);
+            compInst.$mount(compContainer);
+            return compInst;
+        }
+
+        var first = createComponent(todoComp, {
+            todo: { name: "alper", id: 5 },
+            status: false
+        }, {mychange:function(param){console.log(param);}});
+
+        first.todo = {name: "hebeleketepe", id: 19};
+        first.alper({target:{value:5}});
+
+        var second = createComponent(todoComp, {
+            todo: { name: "hebe", id: 6 },
+            status: true
+        }, {mychange:function(param){console.log(param);}});
+
+        new Vue({})
+    </script>
+</body>
+
+</html>

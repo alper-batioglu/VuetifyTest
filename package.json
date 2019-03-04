@@ -1,0 +1,16 @@
+{
+  "name": "vuetifytest",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "runmac": "open http://127.0.0.1:8125/ && node NanoServe/serve.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "vue": "^2.6.8"
+  },
+  "dependencies": {}
+}
