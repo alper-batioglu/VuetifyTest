@@ -24,21 +24,28 @@
             },
             methods: {
                 alper: function (param) {
-                    alert(param.target.value);
-                    this.$emit("mychange", {x:5});
+                    //alert(param.target.value);
+                    this.$emit("mychange", {value: param.target.value});
                 }
             },
-            template: '<input type="text" v-on:change="alper($event)" v-bind:value="todo.name"></input>'
+            template: '<div><input type="text" v-on:change="alper($event)" v-bind:value="todo.name"></input><slot/></div>'
         });
 
 
 
         var app = document.getElementById("app-7");
         function createComponent(comp, props, events) {
-            var compInst = new comp({ propsData: props, _parentListeners: events});
-            var compContainer = document.createElement("div");
-            app.appendChild(compContainer);
-            compInst.$mount(compContainer);
+            var compInst = new comp({ propsData: props/*, _parentListeners: events*/});
+            for (var key in events){
+                compInst.$on(key, events[key]);
+            }
+            //var compContainer = document.createElement("div");
+            //app.appendChild(compContainer);
+            //compInst.$mount(compContainer);
+            compInst.$slots.default = ['Click me!', 'alper', '<h2>:(</h2>'];
+            compInst.$mount();
+            app.appendChild(compInst.$el);
+            
             return compInst;
         }
 
@@ -54,6 +61,9 @@
             todo: { name: "hebe", id: 6 },
             status: true
         }, {mychange:function(param){console.log(param);}});
+
+        window.second = second;
+        window.todoComp = todoComp;
 
         new Vue({})
     </script>
